@@ -1,6 +1,11 @@
 # Prerequisites
 *.d
 
+.idea
+CMakeLists.txt
+cmake-build-debug
+escape
+
 # Compiled Object files
 *.slo
 *.lo
