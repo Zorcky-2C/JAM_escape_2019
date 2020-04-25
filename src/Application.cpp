@@ -13,8 +13,7 @@ void Application::run()
 	m_window.create( sf::VideoMode{800, 600}, "Engine Test v2.1", sf::Style::Titlebar | sf::Style::Close );
 	m_window.setFramerateLimit( 30 );
 
-	// Initialize the engine
-	m_machine.run( StateMachine::build<GameOverState>( m_machine, m_window, true ) );
+	m_machine.run( StateMachine::build<MenuState>( m_machine, m_window, true ) );
 
 	// Main loop
 	while( m_machine.running() )

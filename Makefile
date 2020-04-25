@@ -9,8 +9,7 @@
 
 NAME			=	escape
 
-SRC 			=	src/States/IntroState.cpp \
-					src/States/MenuState.cpp \
+SRC 			=	src/States/MenuState.cpp \
 					src/States/PlayState.cpp \
 					src/Engine/State.cpp \
 					src/Engine/StateMachine.cpp \
