@@ -39,8 +39,6 @@ class GameState : public State
         void setRect(int x, int y, int index_x_pos, int index_y_pos);
         void MovePlayer();
         void check_player_collision();
-        void display_ghosts();
-        void move_player();
 
     private:
         sf::Texture _wall;
@@ -55,8 +53,15 @@ class GameState : public State
         sf::Text _text;
         sf::View player_view;
         sf::IntRect _rect;
+        sf::Vector2f velocity;
 
-        const float player_speed = 500;
+        float frametime;
+        int direction;
+        std::pair<int, int> _pos;
+        std::pair<int, int> player;
+        std::chrono::steady_clock::time_point _start;
+        std::chrono::steady_clock::time_point _current;
+        const float player_speed = 100;
         int _maxtime;
         int _level;
 };

@@ -83,15 +83,15 @@ GameState::GameState(StateMachine &machine, sf::RenderWindow& _window, bool repl
         std::cerr << "Load font failed" << std::endl;
         exit(84);
     }
-    _player.loadFromFile("img/boy.png");
+    _player.loadFromFile("img/player.png");
     s_player.setTexture(_player);
 
     s_player.setOrigin(32, 32);
     s_player.setPosition(55, 45);
-    setRect(0, 0, 0, 0);
+    //setRect(0, 0, 0, 0);
 
-    sf::IntRect _rect(300, 0, 300, 400);
-    sf::Sprite s_player(_player, _rect);
+    //sf::IntRect _rect(300, 0, 300, 400);
+    //sf::Sprite s_player(_player, _rect);
 
     sf::View player_view(sf::FloatRect(0, 0, m_window.getSize().x, m_window.getSize().y));
     this->_level = 1;
@@ -117,7 +117,7 @@ void GameState::DisplayMap()
 {
 	for (int i = 0; i < 61; i++) {
 		for (int j = 0; j < 61; j++) {
-            if (Map[i][j] == '1') {
+            if (Map[i][j] == '1' && Map[i][j] != 'S' && Map[i][j] != 'E') {
                 check_player_collision();
                 s_wall.setTexture(_wall);
                 s_wall.setPosition(((13 / 2) - (13 / 2) + j) * 32, ((16.5 / 2)  - (15.5 / 2) + i) * 32);
@@ -127,56 +127,98 @@ void GameState::DisplayMap()
 	}
 }
 
-void GameState::setRect(int x, int y, int index_x_pos, int index_y_pos)
-{
-    _rect.left = x + (index_x_pos * 48);
-    _rect.top = y + (index_y_pos * 48);
-    _rect.height = 48;
-    _rect.width = 48;
-    s_player.setTextureRect(_rect);
-}
+//void GameState::setRect(int x, int y, int index_x_pos, int index_y_pos)
+//{
+//    _rect.left = x + (index_x_pos * 48);
+//    _rect.top = y + (index_y_pos * 48);
+//    _rect.height = 48;
+//    _rect.width = 48;
+//    s_player.setTextureRect(_rect);
+//}
 
 void GameState::MovePlayer()
 {
     int index_pos = 0;
-    float frametime = player_clock.getElapsedTime().asSeconds();
+    velocity.x = 0.f;
+    velocity.y = 0.f;
+
+    frametime = player_clock.restart().asSeconds();
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
-        setRect(96, 0, 0, index_pos);
-        index_pos++;
-        s_player.move(0, -player_speed * frametime);
+        //setRect(96, 0, 0, index_pos);
+        //index_pos++;
+        velocity.y += -player_speed * frametime;
+        //s_player.move(0, velocity.y);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        setRect(0, 0, 0, index_pos);
-        index_pos++;
-        s_player.move(0, player_speed * frametime);
+        //setRect(0, 0, 0, index_pos);
+        //index_pos++;
+        velocity.y += player_speed * frametime;
+        //s_player.move(0, velocity.y);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
-        setRect(48, 0, 0, index_pos);
-        index_pos++;
-        s_player.move(-player_speed * frametime, 0);
+        //setRect(48, 0, 0, index_pos);
+        //index_pos++;
+        velocity.x += -player_speed * frametime;
+        //s_player.move(velocity.x, 0);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        setRect(144, 0, 0, index_pos);
-        index_pos++;
-        s_player.move(player_speed * frametime, 0);
+        //setRect(144, 0, 0, index_pos);
+        //index_pos++;
+        velocity.x += player_speed * frametime;
+        //s_player.move(velocity.x, 0);
     }
-    if (index_pos > 3) {
-        index_pos = 0;
-    }
-    player_clock.restart();
+    s_player.move(velocity);
+    //if (index_pos > 3) {
+    //    index_pos = 0;
+    //}
+    //player_clock.restart();
 }
 
 void GameState::check_player_collision()
 {
-		if (s_player.getPosition().x < s_wall.getPosition().x)
-            s_player.setPosition(s_player.getPosition().x, s_player.getPosition().y);
-        if (s_player.getPosition().y == s_wall.getPosition().y)
-            s_player.setPosition(s_player.getPosition().x, s_wall.getPosition().y);
-        if (s_player.getPosition().x + s_player.getGlobalBounds().width == s_wall.getGlobalBounds().width)
-            s_player.setPosition(s_wall.getGlobalBounds().width - s_player.getGlobalBounds().width, s_player.getPosition().y);
-        if (s_player.getPosition().y + s_player.getGlobalBounds().height == s_wall.getGlobalBounds().height)
-            s_player.setPosition(s_player.getPosition().x, s_wall.getGlobalBounds().height - s_player.getGlobalBounds().height);
+    sf::FloatRect p_bounds = s_player.getGlobalBounds();
+    sf::FloatRect w_bounds = s_wall.getGlobalBounds();
+    sf::FloatRect nextPos = p_bounds;
+    nextPos.left += velocity.x;
+    nextPos.top += velocity.y;
+
+    if (w_bounds.intersects(p_bounds)) {
+        //velocity.x = 0.f;
+        //velocity.y = 0.f;
+        //bottom
+        if (p_bounds.top < w_bounds.top
+            && p_bounds.top + p_bounds.height < w_bounds.top + w_bounds.height
+            && p_bounds.left < w_bounds.left + w_bounds.width
+            && p_bounds.left + p_bounds.width > w_bounds.left) {
+            velocity.y = 0.f;
+            s_player.setPosition(p_bounds.left, w_bounds.top + p_bounds.height);
+        }
+        //top
+        else if (p_bounds.top > w_bounds.top
+            && p_bounds.top + p_bounds.height > w_bounds.top + w_bounds.height
+            && p_bounds.left < w_bounds.left + w_bounds.width
+            && p_bounds.left + p_bounds.width > w_bounds.left) {
+            velocity.y = 0.f;
+            s_player.setPosition(p_bounds.left, w_bounds.top - w_bounds.height);
+        }
+        //right
+        if (p_bounds.left < w_bounds.left
+            && p_bounds.left + p_bounds.width < w_bounds.left + w_bounds.width
+            && p_bounds.top < w_bounds.top + w_bounds.height
+            && p_bounds.top + p_bounds.height > w_bounds.top) {
+            velocity.x += 0.f;
+            s_player.setPosition(w_bounds.left + p_bounds.width, p_bounds.top);
+        }
+        //left
+        else if (p_bounds.left > w_bounds.left
+            && p_bounds.left + p_bounds.width > w_bounds.left + w_bounds.width
+            && p_bounds.top < w_bounds.top + w_bounds.height
+            && p_bounds.top + p_bounds.height > w_bounds.top) {
+            velocity.x = 0.f;
+            s_player.setPosition(w_bounds.left - w_bounds.width, p_bounds.top);
+        }
+    }
 }
 
 void GameState::DisplayPlayer()
