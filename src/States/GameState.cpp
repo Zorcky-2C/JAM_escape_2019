@@ -172,21 +172,17 @@ void GameState::MovePlayer()
     //if (index_pos > 3) {
     //    index_pos = 0;
     //}
-    //player_clock.restart();
 }
 
 void GameState::check_player_collision()
 {
     sf::FloatRect p_bounds = s_player.getGlobalBounds();
     sf::FloatRect w_bounds = s_wall.getGlobalBounds();
-    sf::FloatRect nextPos = p_bounds;
-    nextPos.left += velocity.x;
-    nextPos.top += velocity.y;
 
     if (w_bounds.intersects(p_bounds)) {
         //velocity.x = 0.f;
         //velocity.y = 0.f;
-        //bottom
+        //bottoms
         if (p_bounds.top < w_bounds.top
             && p_bounds.top + p_bounds.height < w_bounds.top + w_bounds.height
             && p_bounds.left < w_bounds.left + w_bounds.width
@@ -207,7 +203,7 @@ void GameState::check_player_collision()
             && p_bounds.left + p_bounds.width < w_bounds.left + w_bounds.width
             && p_bounds.top < w_bounds.top + w_bounds.height
             && p_bounds.top + p_bounds.height > w_bounds.top) {
-            velocity.x += 0.f;
+            velocity.x = 0.f;
             s_player.setPosition(w_bounds.left + p_bounds.width, p_bounds.top);
         }
         //left
@@ -216,9 +212,10 @@ void GameState::check_player_collision()
             && p_bounds.top < w_bounds.top + w_bounds.height
             && p_bounds.top + p_bounds.height > w_bounds.top) {
             velocity.x = 0.f;
-            s_player.setPosition(w_bounds.left - w_bounds.width, p_bounds.top);
+            s_player.setPosition(w_bounds.left + w_bounds.width, p_bounds.top);
         }
     }
+    MovePlayer();
 }
 
 void GameState::DisplayPlayer()
@@ -286,7 +283,7 @@ void GameState::draw()
 	DisplayMap();
     DisplayTime();
     DisplayPlayer();
-    MovePlayer();
+    //MovePlayer();
 
 	m_window.display();
 }

@@ -56,11 +56,6 @@ class GameState : public State
         sf::Vector2f velocity;
 
         float frametime;
-        int direction;
-        std::pair<int, int> _pos;
-        std::pair<int, int> player;
-        std::chrono::steady_clock::time_point _start;
-        std::chrono::steady_clock::time_point _current;
         const float player_speed = 100;
         int _maxtime;
         int _level;
