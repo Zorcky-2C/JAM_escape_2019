@@ -132,6 +132,7 @@ void MenuState::draw()
 
 	for (auto bat = bats.begin(); bat != bats.end(); bat++) {
         (*bat)->Update();
+        (*bat)->Move(10, 10);
         m_window.draw((*bat)->getSprite());
 	}
 

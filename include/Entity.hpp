@@ -26,12 +26,14 @@ class Entity
         sf::Sprite &getSprite() { return (this->_sprite); }
         sf::IntRect &getTextureRect() { return (this->_rect); }
         sf::Clock &getClock() { return (this->_clock); }
+        sf::Vector2f &getPos() { return (this->_pos); }
 
     private:
         sf::Texture _texture;
         sf::Sprite _sprite;
         sf::IntRect _rect;
         sf::Clock _clock;
+        sf::Vector2f _pos;
 };
 
 #endif //JAM_ESCAPE_2019_ENTITY_HPP

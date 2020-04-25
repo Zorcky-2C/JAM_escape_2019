@@ -16,7 +16,18 @@ Bat::Bat()
 
 void Bat::Move(float x, float y)
 {
-    this->getSprite().setPosition(x, y);
+    sf::Time time;
+    float seconds;
+
+    time = this->getClock().getElapsedTime();
+    seconds = time.asMicroseconds();
+    if (seconds > 100000.0) {
+        if (this->getPos().x > 600) {
+            this->getPos().x = 0;
+        }
+        this->getPos().x += 2;
+    }
+    this->getSprite().setPosition(this->getPos());
 }
 
 void Bat::Update()
