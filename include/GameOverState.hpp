@@ -36,6 +36,9 @@ private:
     sf::Sprite m_bg;
     sf::Text m_text;
     sf::Text r_text;
+    sf::Text v_text;
+    sf::Text e_text;
+    sf::Text d_text;
     sf::Font m_font;
     sf::RectangleShape m_fader;
     sf::Color m_alpha;

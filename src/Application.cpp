@@ -14,6 +14,7 @@ void Application::run()
 	m_window.setFramerateLimit( 30 );
 
 	// Initialize the engine
+	m_machine.is_win = true;
 	m_machine.run( StateMachine::build<GameOverState>( m_machine, m_window, true ) );
 
 	// Main loop
