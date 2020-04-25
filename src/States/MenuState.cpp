@@ -9,6 +9,8 @@
 #include "MenuState.hpp"
 #include "PlayState.hpp"
 
+#include "Bat.hpp"
+
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 
@@ -43,6 +45,12 @@ MenuState::MenuState( StateMachine& machine, sf::RenderWindow& window, bool repl
 	quitText.setFillColor(sf::Color::White);
 
 	this->menuPosition = 0;
+
+	for (int i = 0; i < 1; i++) {
+	    Bat *bat = new Bat();
+	    bat->setSpriteSheet("resources/bat.png");
+	    this->bats.push_back(bat);
+	}
 
 	std::cout << "MenuState Init" << std::endl;
 }
@@ -121,6 +129,12 @@ void MenuState::draw()
 	    playText.setFillColor(sf::Color::White);
         quitText.setFillColor(sf::Color::Yellow);
 	}
+
+	for (auto bat = bats.begin(); bat != bats.end(); bat++) {
+        (*bat)->Update();
+        m_window.draw((*bat)->getSprite());
+	}
+
 	m_window.draw(this->gameName);
 	m_window.draw(this->playText);
 	m_window.draw(this->quitText);

@@ -2,6 +2,7 @@
 #define MENUSTATE_HPP
 
 #include "State.hpp"
+#include "Bat.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -33,6 +34,8 @@ private:
 	sf::Text quitText;
 
 	int menuPosition;
+
+	std::vector<Entity*> bats;
 };
 
 #endif // MENUSTATE_HPP
