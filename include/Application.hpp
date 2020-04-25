@@ -3,6 +3,7 @@
 
 #include "MenuState.hpp"
 #include "StateMachine.hpp"
+#include "GameOverState.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
