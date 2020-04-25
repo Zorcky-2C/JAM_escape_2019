@@ -7,6 +7,7 @@
 
 #include "StateMachine.hpp"
 #include "MenuState.hpp"
+#include "PlayState.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
@@ -17,9 +18,31 @@
 MenuState::MenuState( StateMachine& machine, sf::RenderWindow& window, bool replace )
 : State{ machine, window, replace }
 {
-	m_bgTex.loadFromFile( "img/menu.png" );
+	m_bgTex.loadFromFile( "resources/background.png" );
 
 	m_bg.setTexture( m_bgTex, true );
+
+	font.loadFromFile("resources/pixel.ttf");
+
+	gameName.setString("Escape the Maze!");
+	gameName.setFont(font);
+	gameName.setCharacterSize(65);
+	gameName.setPosition((800 / 2) - ((38 * 16) / 2), 120);
+	gameName.setFillColor(sf::Color::White);
+
+	playText.setString("Play Game");
+	playText.setFont(font);
+	playText.setCharacterSize(51);
+	playText.setPosition((800 / 2) - ((30 * 9) / 2), 260);
+	playText.setFillColor(sf::Color::White);
+
+	quitText.setString("Quit");
+	quitText.setFont(font);
+	quitText.setCharacterSize(51);
+	quitText.setPosition((800 / 2) - ((30 * 4) / 2), 350);
+	quitText.setFillColor(sf::Color::White);
+
+	this->menuPosition = 0;
 
 	std::cout << "MenuState Init" << std::endl;
 }
@@ -50,7 +73,28 @@ void MenuState::update()
 				switch( event.key.code )
 				{
 					case sf::Keyboard::Escape:
-						m_machine.lastState();
+						m_machine.quit();
+						break;
+
+					case sf::Keyboard::Up:
+						if (this->menuPosition == 0)
+						    this->menuPosition = 1;
+						else if (this->menuPosition == 1)
+                            this->menuPosition = 0;
+						break;
+
+					case sf::Keyboard::Down:
+						if (this->menuPosition == 1)
+						    this->menuPosition = 0;
+						else if (this->menuPosition == 0)
+                            this->menuPosition = 1;
+						break;
+
+					case sf::Keyboard::Enter:
+						if (this->menuPosition == 1)
+						    m_machine.quit();
+						else if (this->menuPosition == 0)
+                           m_next = StateMachine::build<PlayState>( m_machine, m_window, false );
 						break;
 
 					default:
@@ -69,5 +113,16 @@ void MenuState::draw()
 	// Clear the previous drawing
 	m_window.clear();
 	m_window.draw( m_bg );
+	if (this->menuPosition == 0) {
+	    quitText.setFillColor(sf::Color::White);
+	    playText.setFillColor(sf::Color::Yellow);
+	}
+	else if (this->menuPosition == 1) {
+	    playText.setFillColor(sf::Color::White);
+        quitText.setFillColor(sf::Color::Yellow);
+	}
+	m_window.draw(this->gameName);
+	m_window.draw(this->playText);
+	m_window.draw(this->quitText);
 	m_window.display();
 }

@@ -3,8 +3,7 @@
 
 #include "State.hpp"
 
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics.hpp>
 
 class StateMachine;
 
@@ -27,6 +26,13 @@ public:
 private:
 	sf::Texture m_bgTex;
 	sf::Sprite m_bg;
+
+	sf::Font font;
+	sf::Text gameName;
+	sf::Text playText;
+	sf::Text quitText;
+
+	int menuPosition;
 };
 
 #endif // MENUSTATE_HPP
