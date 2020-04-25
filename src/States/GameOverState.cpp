@@ -101,9 +101,9 @@ void GameOverState::draw()
     m_window.draw(m_text);
     m_window.draw(r_text);
 
-    if( m_alpha.a != 0 )
-        m_window.draw( m_fader );
-
+    if( m_alpha.a != 0 ) {
+        m_window.draw(m_fader);
+    }
     m_window.display();
 }
     /*std::stringstream displayscore;
