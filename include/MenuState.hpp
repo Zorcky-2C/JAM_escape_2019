@@ -36,6 +36,7 @@ private:
 	int menuPosition;
 
 	std::vector<Entity*> bats;
+	std::vector<Entity*> birds;
 };
 
 #endif // MENUSTATE_HPP

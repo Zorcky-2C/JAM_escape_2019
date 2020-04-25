@@ -22,6 +22,7 @@ class Entity
         void setTexture(sf::Texture texture) { _texture = texture; }
         void setSprite(sf::Sprite sprite) { _sprite = sprite; }
         void setTextureRect(sf::IntRect rect) { _rect = rect; }
+        void setPos(sf::Vector2f pos) { _pos = pos; }
         sf::Texture &getTexture() { return (this->_texture); }
         sf::Sprite &getSprite() { return (this->_sprite); }
         sf::IntRect &getTextureRect() { return (this->_rect); }

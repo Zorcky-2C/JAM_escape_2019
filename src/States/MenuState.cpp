@@ -16,6 +16,7 @@
 
 #include <memory>
 #include <iostream>
+#include "Bird.hpp"
 
 MenuState::MenuState( StateMachine& machine, sf::RenderWindow& window, bool replace )
 : State{ machine, window, replace }
@@ -51,6 +52,12 @@ MenuState::MenuState( StateMachine& machine, sf::RenderWindow& window, bool repl
 	    bat->setSpriteSheet("resources/bat.png");
 	    this->bats.push_back(bat);
 	}
+
+    for (int i = 0; i < 1; i++) {
+        Bird *bird = new Bird();
+        bird->setSpriteSheet("resources/bird_right.png");
+        this->birds.push_back(bird);
+    }
 
 	std::cout << "MenuState Init" << std::endl;
 }
@@ -135,6 +142,12 @@ void MenuState::draw()
         (*bat)->Move(10, 10);
         m_window.draw((*bat)->getSprite());
 	}
+
+    for (auto bird = birds.begin(); bird != birds.end(); bird++) {
+        (*bird)->Update();
+        (*bird)->Move(10, 10);
+        m_window.draw((*bird)->getSprite());
+    }
 
 	m_window.draw(this->gameName);
 	m_window.draw(this->playText);
