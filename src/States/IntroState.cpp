@@ -8,6 +8,7 @@
 #include "IntroState.hpp"
 #include "PlayState.hpp"
 #include "StateMachine.hpp"
+#include "GameState.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
@@ -58,7 +59,7 @@ void IntroState::update()
                 switch( event.key.code )
                 {
                     case sf::Keyboard::Space:
-                        m_next = StateMachine::build<PlayState>( m_machine, m_window, true );
+                        m_next = StateMachine::build<GameState>( m_machine, m_window, true );
                         break;
 
                     case sf::Keyboard::Escape:

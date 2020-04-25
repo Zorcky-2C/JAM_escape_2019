@@ -12,6 +12,7 @@ NAME			=	escape
 SRC 			=	src/States/IntroState.cpp \
 					src/States/MenuState.cpp \
 					src/States/PlayState.cpp \
+					src/States/GameState.cpp \
 					src/Engine/State.cpp \
 					src/Engine/StateMachine.cpp \
 					src/Application.cpp \
