@@ -45,4 +45,7 @@ std::unique_ptr<T> StateMachine::build( StateMachine& machine, sf::RenderWindow&
 	return std::unique_ptr<T>( new T( machine, window, replace ) );
 }
 
+std::string create_maze(int h, int w);
+int generate_maze(int h, int w);
+
 #endif // GAMEENGINE_HPP

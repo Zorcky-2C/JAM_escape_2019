@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2020
+** JAM_escape_2019
+** File description:
+** game
+*/
+
 #ifndef MENUSTATE_HPP
 #define MENUSTATE_HPP
 
