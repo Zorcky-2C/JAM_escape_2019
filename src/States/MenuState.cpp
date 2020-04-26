@@ -18,6 +18,9 @@
 #include <iostream>
 #include "Bird.hpp"
 
+const int ScreenX = 800;
+const int ScreenY = 600;
+
 MenuState::MenuState( StateMachine& machine, sf::RenderWindow& window, bool replace )
 : State{ machine, window, replace }
 {
@@ -58,6 +61,16 @@ MenuState::MenuState( StateMachine& machine, sf::RenderWindow& window, bool repl
         bird->setSpriteSheet("resources/bird_right.png");
         this->birds.push_back(bird);
     }
+
+    std::srand(std::time(0));
+    for (int i = 0; i < 100; i++) {
+        sf::RectangleShape rectangle;
+        rectangle.setFillColor((sf::Color){42,52,62, 150});
+        rectangle.setSize(sf::Vector2f((rand()%15)/10.f+1,(rand()%500)/10.f+3));
+		rectangles.push_back(rectangle);
+		rectangles[i].setPosition(sf::Vector2f(rand()%ScreenX,rand()%ScreenY));
+		speed.push_back((rectangles[i].getSize().x)*rectangles[i].getSize().x);
+	}
 
 	std::cout << "MenuState Init" << std::endl;
 }
@@ -128,6 +141,19 @@ void MenuState::draw()
 	// Clear the previous drawing
 	m_window.clear();
 	m_window.draw( m_bg );
+
+	for (int i = 0; i < rectangles.size(); i++) {
+        if (rectangles[i].getPosition().y <= ScreenY)
+            rectangles[i].setPosition(rectangles[i].getPosition().x, rectangles[i].getPosition().y + speed[i] + spd);
+        else {
+            rectangles[i].setPosition(rectangles[i].getPosition().x, -40);
+        }
+    }
+
+    for (int i = 0; i < rectangles.size(); i++) {
+        m_window.draw(rectangles[i]);
+    }
+
 	if (this->menuPosition == 0) {
 	    quitText.setFillColor(sf::Color::White);
 	    playText.setFillColor(sf::Color::Yellow);

@@ -37,6 +37,10 @@ private:
 
 	std::vector<Entity*> bats;
 	std::vector<Entity*> birds;
+
+	float spd = 5;
+	std::vector<float> speed;
+	std::vector<sf::RectangleShape> rectangles;
 };
 
 #endif // MENUSTATE_HPP
