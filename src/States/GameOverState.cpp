@@ -66,7 +66,7 @@ void GameOverState::update()
                 switch( event.key.code )
                 {
                     case sf::Keyboard::Space:
-                        m_next = StateMachine::build<PlayState>( m_machine, m_window, true );
+                        m_next = StateMachine::build<GameState>( m_machine, m_window, true );
                         break;
 
                     case sf::Keyboard::Escape:

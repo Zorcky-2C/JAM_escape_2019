@@ -13,7 +13,7 @@
 #include <sstream>
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "PlayState.hpp"
+#include "GameState.hpp"
 
 namespace sf
 {

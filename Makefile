@@ -10,14 +10,13 @@
 NAME			=	escape
 
 SRC 			=	src/States/MenuState.cpp \
-					src/States/PlayState.cpp \
 					src/States/GameState.cpp \
 					src/Engine/State.cpp \
 					src/Engine/StateMachine.cpp \
 					src/Application.cpp \
 					src/main.cpp \
-					src/MazeGenerator.cpp
-          src/States/GameOverState.cpp \
+					src/MazeGenerator.cpp \
+          			src/States/GameOverState.cpp \
 					src/Entities/Entity.cpp \
 					src/Entities/Bat.cpp	\
 					src/Entities/Bird.cpp
