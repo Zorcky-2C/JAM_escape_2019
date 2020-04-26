@@ -108,6 +108,7 @@ GameState::GameState(StateMachine &machine, sf::RenderWindow& _window, bool repl
     sf::View player_view(sf::FloatRect(0, 0, m_window.getSize().x, m_window.getSize().y));
     this->_level = 1;
     this->_maxtime = 90 / this->_level;
+    this->check = false;
 }
 
 GameState::~GameState()
@@ -125,29 +126,29 @@ void GameState::resume()
     std::cout << "GameState Resume" << std::endl;
 }
 
-/*void GameState::win()
+void GameState::win()
 {
-    //std::string messageTime;
-    //_win.setFont(_font);
-    //_win.setString("Win");
-    //_win.setCharacterSize(120);
-    //_win.setFillColor(sf::Color::White);
-    //messageTime = "You Win";
+    std::string messageTime;
+    _win.setFont(_font);
+    _win.setString("Win");
+    _win.setCharacterSize(120);
+    _win.setFillColor(sf::Color::White);
+    messageTime = "You Win";
 
-    sf::FloatRect def(0, 0, 800, 600);
-    player_view.reset(def);
-    m_next = StateMachine::build<GameOverState>(m_machine, m_window, false);
-    //m_window.clear();
-    //_win.setPosition(((WIDTH / 2) / 2), ((HEIGHT / 2) - 50));
-    //_win.setString(messageTime);
-    //m_window.draw(_win);
-}*/
+
+    //sf::View view = m_window.getDefaultView();
+    //m_window.setView(view);
+    //m_next = StateMachine::build<GameOverState>(m_machine, m_window, false);
+    m_window.clear();
+    _win.setPosition(((WIDTH / 2) / 2), ((HEIGHT / 2) - 50));
+    _win.setString(messageTime);
+    m_window.draw(_win);
+}
 
 void GameState::check_win()
 {
     if (check_collision(s_player, s_door)) {
-        sf::FloatRect def(0, 0, 800, 600);
-        player_view.reset(def);
+        win();
         m_next = StateMachine::build<GameOverState>(m_machine, m_window, false);
     }
 }

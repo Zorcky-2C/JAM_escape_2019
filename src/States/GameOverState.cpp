@@ -94,12 +94,20 @@ void GameOverState::resume()
     std::cout << "ScoreState Resume" << std::endl;
 }
 
+void GameOverState::defaultWindow()
+{
+    sf::View view = m_window.getDefaultView();
+    view.zoom(0.5f);
+    m_window.setView(view);
+}
+
 void GameOverState::draw()
 {
     m_window.clear();
     m_window.draw(m_bg);
     m_window.draw(m_text);
     m_window.draw(r_text);
+    defaultWindow();
 
     if( m_alpha.a != 0 ) {
         m_window.draw(m_fader);

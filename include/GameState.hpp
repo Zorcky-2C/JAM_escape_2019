@@ -47,7 +47,7 @@ class GameState : public State
         void setRect(int x, int y, int index_x_pos, int index_y_pos);
         void MovePlayer();
         void check_player_collision();
-        //void win();
+        void win();
         void check_win();
 
     private:
@@ -74,6 +74,7 @@ class GameState : public State
         const float player_speed = 500;
         int _maxtime;
         int _level;
+        bool check;
 };
 
 #endif /* !GAMESTATE_HPP_ */
