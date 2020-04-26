@@ -226,7 +226,7 @@ void GameState::update()
                 switch( event.key.code) {
                     case sf::Keyboard::Escape :
                         m_machine.quit();
-                    case sf::Keyboard::Enter:
+                    case sf::Keyboard::M:
 						m_next = StateMachine::build<MenuState>(m_machine, m_window, false);
                         break;
 					default:

@@ -31,6 +31,7 @@ public:
 	void update();
 	void draw();
 
+	void defaultWindow();
 private:
 	sf::Texture m_bgTex;
 	sf::Sprite m_bg;

@@ -119,7 +119,7 @@ void MenuState::update()
                             this->menuPosition = 1;
 						break;
 
-					case sf::Keyboard::M:
+					case sf::Keyboard::Enter:
 						if (this->menuPosition == 1)
 						    m_machine.quit();
 						else if (this->menuPosition == 0)
@@ -135,6 +135,12 @@ void MenuState::update()
 				break;
 		}
 	}
+}
+
+void MenuState::defaultWindow()
+{
+    sf::View view = m_window.getDefaultView();
+    m_window.setView(view);
 }
 
 void MenuState::draw()
@@ -175,7 +181,7 @@ void MenuState::draw()
         (*bird)->Move(10, 10);
         m_window.draw((*bird)->getSprite());
     }
-
+	defaultWindow();
 	m_window.draw(this->gameName);
 	m_window.draw(this->playText);
 	m_window.draw(this->quitText);
