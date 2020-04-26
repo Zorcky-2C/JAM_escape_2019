@@ -119,7 +119,7 @@ void MenuState::update()
                             this->menuPosition = 1;
 						break;
 
-					case sf::Keyboard::Enter:
+					case sf::Keyboard::M:
 						if (this->menuPosition == 1)
 						    m_machine.quit();
 						else if (this->menuPosition == 0)
