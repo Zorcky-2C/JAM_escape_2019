@@ -52,6 +52,8 @@ class GameState : public State
         sf::Texture _player;
         sf::Sprite s_wall;
         sf::Sprite s_player;
+        sf::Texture _bg;
+        sf::Sprite s_bg;
 
         sf::Clock timer_clock;
         sf::Clock player_clock;
