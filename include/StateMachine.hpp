@@ -31,6 +31,7 @@ public:
 	void quit() { m_running = false; }
 
 	sf::Music music;
+	bool is_win;
 
 	template <typename T>
 	static std::unique_ptr<T> build( StateMachine& machine, sf::RenderWindow& window, bool replace = true );

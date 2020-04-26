@@ -13,6 +13,8 @@ void Application::run()
 	m_window.create( sf::VideoMode{800, 600}, "Game Escape", sf::Style::Titlebar | sf::Style::Close );
 	m_window.setFramerateLimit( 30 );
 
+	m_machine.is_win = true;
+
 	m_machine.run( StateMachine::build<MenuState>( m_machine, m_window, true ) );
 
 	m_machine.music.openFromFile("resources/music.ogg");

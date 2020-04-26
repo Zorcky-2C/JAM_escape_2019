@@ -8,9 +8,6 @@
 #include "GameState.hpp"
 #include "GameOverState.hpp"
 
-#define HEIGHT 40 * 20
-#define WIDTH 60 * 20
-
 std::vector<std::string> Map = {
     "1S11111111111111111111111111111111111111111111111111111111111",
     "1 1     1   1     1       1 1       1       1     1         1",
@@ -102,7 +99,7 @@ GameState::GameState(StateMachine &machine, sf::RenderWindow& _window, bool repl
     s_bg.setScale(2, 2.5);
 
     s_player.setOrigin(32, 32);
-    //s_player.setPosition(55, 45);
+    s_player.setPosition(55, 45);
     //setRect(0, 0, 0, 0);
 
     sf::View player_view(sf::FloatRect(0, 0, m_window.getSize().x, m_window.getSize().y));
@@ -126,29 +123,10 @@ void GameState::resume()
     std::cout << "GameState Resume" << std::endl;
 }
 
-void GameState::win()
-{
-    std::string messageTime;
-    _win.setFont(_font);
-    _win.setString("Win");
-    _win.setCharacterSize(120);
-    _win.setFillColor(sf::Color::White);
-    messageTime = "You Win";
-
-
-    //sf::View view = m_window.getDefaultView();
-    //m_window.setView(view);
-    //m_next = StateMachine::build<GameOverState>(m_machine, m_window, false);
-    m_window.clear();
-    _win.setPosition(((WIDTH / 2) / 2), ((HEIGHT / 2) - 50));
-    _win.setString(messageTime);
-    m_window.draw(_win);
-}
-
 void GameState::check_win()
 {
     if (check_collision(s_player, s_door)) {
-        win();
+        m_machine.is_win = true;
         m_next = StateMachine::build<GameOverState>(m_machine, m_window, false);
     }
 }
@@ -266,25 +244,21 @@ void GameState::DisplayTime()
 {
     int timer = 0;
     int time_player = 0;
-    int actual_score = 0;
-    std::string messageTime;
-    std::string messageScore;
-    _text.setFont(_font);
-    _text.setString("Timer");
-    _text.setCharacterSize(20);
-    _text.setFillColor(sf::Color::White);
+    _score.setFont(_font);
+    _score.setCharacterSize(28);
+    _score.setPosition(s_player.getPosition().x - 430, s_player.getPosition().y + 430);
+    _score.setFillColor(sf::Color::White);
 
     timer = timer_clock.getElapsedTime().asSeconds();
     time_player = this->_maxtime - timer;
+    _score.setString("Time left: " + std::to_string(time_player));
+    m_window.draw(_score);
+    
     if (time_player == 0) {
         std::cout << "You have lost! " << std::endl;
-        m_machine.music.stop();
-        exit(0);
+        m_machine.is_win = false;
+        m_next = StateMachine::build<GameOverState>(m_machine, m_window, false);
     }
-    messageTime = "You have " + std::to_string(time_player) + " seconds left !";
-    _text.setPosition(20*20, 20*20);
-    _text.setString(messageTime);
-    m_window.draw(_text);
 }
 
 void GameState::update()

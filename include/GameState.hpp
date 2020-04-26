@@ -64,8 +64,7 @@ class GameState : public State
         sf::Clock player_clock;
         sf::Time _seed;
         sf::Font _font;
-        sf::Text _text;
-        sf::Text _win;
+        sf::Text _score;
         sf::View player_view;
         sf::IntRect _rect;
         sf::Vector2f velocity;

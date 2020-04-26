@@ -13,22 +13,57 @@
 GameOverState::GameOverState(StateMachine &machine, sf::RenderWindow& window, bool replace)
         : State{ machine, window, replace }
 {
-    m_bgTex.loadFromFile("resources/background_gameover.png");
-    m_bg.setTexture( m_bgTex, true );
-    m_font.loadFromFile("resources/pixel.ttf");
+    if (!m_machine.is_win) {
+        m_bgTex.loadFromFile("resources/background_gameover.png");
+        m_bg.setTexture(m_bgTex, true);
+        m_font.loadFromFile("resources/pixel.ttf");
 
-    m_text.setFont(m_font);
-    m_text.setFillColor(sf::Color::White);
-    m_text.setString("Game Over !!");
-    m_text.setPosition((800 / 2) - ((17 * 14)/2), 250.f);
-    m_text.setCharacterSize(30);
+        m_text.setFont(m_font);
+        m_text.setFillColor(sf::Color::White);
+        m_text.setString("Game Over !!");
+        m_text.setPosition((800 / 2) - ((17 * 14) / 2), 250.f);
+        m_text.setCharacterSize(30);
 
-    r_text.setFont(m_font);
-    r_text.setFillColor(sf::Color::White);
-    r_text.setString("Press space to reload the game!");
-    r_text.setPosition((800 / 2) - ((17 * 31)/2), 500.f);
-    r_text.setCharacterSize(30);
+        r_text.setFont(m_font);
+        r_text.setFillColor(sf::Color::White);
+        r_text.setString("Press space to reload the game!");
+        r_text.setPosition((800 / 2) - ((17 * 31) / 2), 500.f);
+        r_text.setCharacterSize(30);
+    } else {
+        m_bgTex.loadFromFile("resources/background_win.png");
+        m_bg.setTexture(m_bgTex, true);
+        m_font.loadFromFile("resources/pixel.ttf");
 
+        v_text.setFont(m_font);
+        v_text.setFillColor(sf::Color::White);
+        v_text.setString("Congratulations !!");
+        v_text.setPosition((800 / 2) - ((17 * 18) / 2), 100.f);
+        v_text.setCharacterSize(30);
+
+        e_text.setFont(m_font);
+        e_text.setFillColor(sf::Color::White);
+        e_text.setString("The mind is a greater warrior");
+        e_text.setPosition((800 / 2) - ((17 * 29) / 2), 200.f);
+        e_text.setCharacterSize(30);
+
+        d_text.setFont(m_font);
+        d_text.setFillColor(sf::Color::White);
+        d_text.setString("than the sword !");
+        d_text.setPosition((800 / 2) - ((17 * 16) / 2), 225.f);
+        d_text.setCharacterSize(30);
+
+        m_text.setFont(m_font);
+        m_text.setFillColor(sf::Color::White);
+        m_text.setString("You escaped the maze...");
+        m_text.setPosition((800 / 2) - ((17 * 23) / 2), 125.f);
+        m_text.setCharacterSize(30);
+
+        r_text.setFont(m_font);
+        r_text.setFillColor(sf::Color::White);
+        r_text.setString("Press space to reload the game!");
+        r_text.setPosition((800 / 2) - ((17 * 31) / 2), 500.f);
+        r_text.setCharacterSize(30);
+    }
     // Start off opaque
     m_alpha = sf::Color{ 0, 0, 0, 255 };
 
@@ -97,7 +132,6 @@ void GameOverState::resume()
 void GameOverState::defaultWindow()
 {
     sf::View view = m_window.getDefaultView();
-    view.zoom(0.5f);
     m_window.setView(view);
 }
 
@@ -107,6 +141,12 @@ void GameOverState::draw()
     m_window.draw(m_bg);
     m_window.draw(m_text);
     m_window.draw(r_text);
+    if (m_machine.is_win) {
+        defaultWindow();
+        m_window.draw(e_text);
+        m_window.draw(v_text);
+        m_window.draw(d_text);
+    }
     defaultWindow();
 
     if( m_alpha.a != 0 ) {
