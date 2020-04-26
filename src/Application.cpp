@@ -10,7 +10,7 @@
 void Application::run()
 {
 	// Create render window
-	m_window.create( sf::VideoMode{800, 600}, "Engine Test v2.1", sf::Style::Titlebar | sf::Style::Close );
+	m_window.create( sf::VideoMode{800, 600}, "Game Escape", sf::Style::Titlebar | sf::Style::Close );
 	m_window.setFramerateLimit( 30 );
 
 	m_machine.run( StateMachine::build<MenuState>( m_machine, m_window, true ) );

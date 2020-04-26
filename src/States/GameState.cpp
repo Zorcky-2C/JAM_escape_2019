@@ -6,6 +6,10 @@
 */
 
 #include "GameState.hpp"
+#include "GameOverState.hpp"
+
+#define HEIGHT 40 * 20
+#define WIDTH 60 * 20
 
 std::vector<std::string> Map = {
     "1S11111111111111111111111111111111111111111111111111111111111",
@@ -83,7 +87,14 @@ GameState::GameState(StateMachine &machine, sf::RenderWindow& _window, bool repl
         std::cerr << "Load font failed" << std::endl;
         exit(84);
     }
-    _player.loadFromFile("img/player.png");
+    if (!_player.loadFromFile("img/player.png")) {
+        std::cerr << "Load texture failed" << std::endl;
+        exit(84);
+    }
+    if (!_door.loadFromFile("img/export.png")) {
+        std::cerr << "Load texture failed" << std::endl;
+        exit(84);
+    }
     s_player.setTexture(_player);
 
     _bg.loadFromFile("resources/background.png");
@@ -114,28 +125,32 @@ void GameState::resume()
     std::cout << "GameState Resume" << std::endl;
 }
 
-void GameState::DisplayMap()
+/*void GameState::win()
 {
-	for (int i = 0; i < 61; i++) {
-		for (int j = 0; j < 61; j++) {
-            if (Map[i][j] == '1' && Map[i][j] != 'S' && Map[i][j] != 'E') {
-                check_player_collision();
-                s_wall.setTexture(_wall);
-                s_wall.setPosition(((13 / 2) - (13 / 2) + j) * 32, ((16.5 / 2)  - (15.5 / 2) + i) * 32);
-                m_window.draw(s_wall);
-            }
-		}
-	}
-}
+    //std::string messageTime;
+    //_win.setFont(_font);
+    //_win.setString("Win");
+    //_win.setCharacterSize(120);
+    //_win.setFillColor(sf::Color::White);
+    //messageTime = "You Win";
 
-//void GameState::setRect(int x, int y, int index_x_pos, int index_y_pos)
-//{
-//    _rect.left = x + (index_x_pos * 48);
-//    _rect.top = y + (index_y_pos * 48);
-//    _rect.height = 48;
-//    _rect.width = 48;
-//    s_player.setTextureRect(_rect);
-//}
+    sf::FloatRect def(0, 0, 800, 600);
+    player_view.reset(def);
+    m_next = StateMachine::build<GameOverState>(m_machine, m_window, false);
+    //m_window.clear();
+    //_win.setPosition(((WIDTH / 2) / 2), ((HEIGHT / 2) - 50));
+    //_win.setString(messageTime);
+    //m_window.draw(_win);
+}*/
+
+void GameState::check_win()
+{
+    if (check_collision(s_player, s_door)) {
+        sf::FloatRect def(0, 0, 800, 600);
+        player_view.reset(def);
+        m_next = StateMachine::build<GameOverState>(m_machine, m_window, false);
+    }
+}
 
 void GameState::check_player_collision()
 {
@@ -173,6 +188,37 @@ void GameState::check_player_collision()
         }
     }
 }
+
+void GameState::DisplayMap()
+{
+	for (int i = 0; i < 61; i++) {
+		for (int j = 0; j < 61; j++) {
+            if (Map[i][j] == '1' && Map[i][j] != 'S' && Map[i][j] != 'E') {
+                check_player_collision();
+                s_wall.setTexture(_wall);
+                s_wall.setPosition(((13 / 2) - (13 / 2) + j) * 32,
+                ((16.5 / 2)  - (15.5 / 2) + i) * 32);
+                m_window.draw(s_wall);
+            }
+            if (Map[i][j] == 'E') {
+                check_win();
+                s_door.setTexture(_door);
+                s_door.setPosition(((13 / 2) - (13 / 2) + j) * 32,
+                ((16.5 / 2)  - (15.5 / 2) + i) * 32);
+                m_window.draw(s_door);
+            }
+		}
+	}
+}
+
+//void GameState::setRect(int x, int y, int index_x_pos, int index_y_pos)
+//{
+//    _rect.left = x + (index_x_pos * 48);
+//    _rect.top = y + (index_y_pos * 48);
+//    _rect.height = 48;
+//    _rect.width = 48;
+//    s_player.setTextureRect(_rect);
+//}
 
 void GameState::MovePlayer()
 {
@@ -231,6 +277,7 @@ void GameState::DisplayTime()
     time_player = this->_maxtime - timer;
     if (time_player == 0) {
         std::cout << "You have lost! " << std::endl;
+        m_machine.music.stop();
         exit(0);
     }
     messageTime = "You have " + std::to_string(time_player) + " seconds left !";

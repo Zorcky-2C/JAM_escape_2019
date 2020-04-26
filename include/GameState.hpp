@@ -11,6 +11,7 @@
 #include "State.hpp"
 #include "StateMachine.hpp"
 #include "MenuState.hpp"
+#include "GameOverState.hpp"
 #include <SFML/Graphics.hpp>
 #include <chrono>
 #include <vector>
@@ -46,12 +47,16 @@ class GameState : public State
         void setRect(int x, int y, int index_x_pos, int index_y_pos);
         void MovePlayer();
         void check_player_collision();
+        //void win();
+        void check_win();
 
     private:
         sf::Texture _wall;
         sf::Texture _player;
+        sf::Texture _door;
         sf::Sprite s_wall;
         sf::Sprite s_player;
+        sf::Sprite s_door;
         sf::Texture _bg;
         sf::Sprite s_bg;
 
@@ -60,12 +65,13 @@ class GameState : public State
         sf::Time _seed;
         sf::Font _font;
         sf::Text _text;
+        sf::Text _win;
         sf::View player_view;
         sf::IntRect _rect;
         sf::Vector2f velocity;
 
         float frametime;
-        const float player_speed = 150;
+        const float player_speed = 500;
         int _maxtime;
         int _level;
 };

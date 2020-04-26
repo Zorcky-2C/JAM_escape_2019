@@ -5,6 +5,7 @@
 #include <stack>
 #include <string>
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 
 class State;
 
