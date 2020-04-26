@@ -7,6 +7,7 @@
 
 #include "StateMachine.hpp"
 #include "MenuState.hpp"
+#include "GameState.hpp"
 #include "PlayState.hpp"
 
 #include "Bat.hpp"
@@ -102,7 +103,7 @@ void MenuState::update()
 						if (this->menuPosition == 1)
 						    m_machine.quit();
 						else if (this->menuPosition == 0)
-                           m_next = StateMachine::build<PlayState>( m_machine, m_window, false );
+                           m_next = StateMachine::build<GameState>( m_machine, m_window, false );
 						break;
 
 					default:
