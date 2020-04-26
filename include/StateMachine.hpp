@@ -4,6 +4,7 @@
 #include <memory>
 #include <stack>
 #include <string>
+#include <SFML/Audio.hpp>
 
 class State;
 
@@ -27,6 +28,8 @@ public:
 
 	bool running() { return m_running; }
 	void quit() { m_running = false; }
+
+	sf::Music music;
 
 	template <typename T>
 	static std::unique_ptr<T> build( StateMachine& machine, sf::RenderWindow& window, bool replace = true );

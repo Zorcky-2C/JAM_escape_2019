@@ -5,18 +5,18 @@
 ** file
 */
 
-#include "Bat.hpp"
+#include "Bird.hpp"
 
-Bat::Bat()
+Bird::Bird()
 {
-    this->setSpriteSheet("resources/bat.png");
-    this->setTextureRect((sf::IntRect){0, 166, 32, 21});
+    this->setSpriteSheet("resources/bird_right.png");
+    this->setTextureRect((sf::IntRect){0, 16, 16, 16});
     this->getSprite().setTextureRect(this->getTextureRect());
-    this->getPos().x = 800;
-    this->getPos().y = 10;
+    this->getPos().x = -100;
+    this->getPos().y = 100;
 }
 
-void Bat::Move(float x, float y)
+void Bird::Move(float x, float y)
 {
     sf::Time time;
     float seconds;
@@ -26,7 +26,7 @@ void Bat::Move(float x, float y)
     time = this->getClock().getElapsedTime();
     seconds = time.asMicroseconds();
     if (seconds > 1000.0) {
-        if (tick > 20) {
+        if (tick > 50) {
             moove_up_and_down = -moove_up_and_down;
             tick = 0;
         }
@@ -34,15 +34,15 @@ void Bat::Move(float x, float y)
         this->getPos().y += moove_up_and_down;
     }
     if (seconds > 1000.0) {
-        if (this->getPos().x < -100) {
-            this->getPos().x = 800;
+        if (this->getPos().x > 800) {
+            this->getPos().x = -100;
         }
-        this->getPos().x -= 5;
+        this->getPos().x += 5;
     }
     this->getSprite().setPosition(this->getPos());
 }
 
-void Bat::Update()
+void Bird::Update()
 {
     sf::Time time;
     float seconds;
@@ -50,9 +50,9 @@ void Bat::Update()
     time = this->getClock().getElapsedTime();
     seconds = time.asMicroseconds();
     if (seconds > 100000.0) {
-        if (this->getTextureRect().left >= 32 * 9)
+        if (this->getTextureRect().left >= 16 * 7)
             this->getTextureRect().left = 0;
-        this->getTextureRect().left += 32;
+        this->getTextureRect().left += 16;
         this->getSprite().setTextureRect(this->getTextureRect());
         this->getClock().restart();
     }

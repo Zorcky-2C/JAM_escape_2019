@@ -15,6 +15,10 @@ void Application::run()
 
 	m_machine.run( StateMachine::build<MenuState>( m_machine, m_window, true ) );
 
+	m_machine.music.openFromFile("resources/music.ogg");
+	m_machine.music.setVolume(20);
+    m_machine.music.play();
+
 	// Main loop
 	while( m_machine.running() )
 	{

@@ -18,7 +18,8 @@ SRC 			=	src/States/MenuState.cpp \
 					src/main.cpp		\
 					src/States/GameOverState.cpp \
 					src/Entities/Entity.cpp \
-					src/Entities/Bat.cpp
+					src/Entities/Bat.cpp	\
+					src/Entities/Bird.cpp
 
 OBJ				= 	$(SRC:.cpp=.o)
 
