@@ -1,8 +1,9 @@
 #ifndef APPLICATION_HPP
 #define APPLICATION_HPP
 
-#include "IntroState.hpp"
+#include "MenuState.hpp"
 #include "StateMachine.hpp"
+#include "GameOverState.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
