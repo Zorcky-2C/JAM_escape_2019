@@ -86,6 +86,10 @@ GameState::GameState(StateMachine &machine, sf::RenderWindow& _window, bool repl
     _player.loadFromFile("img/player.png");
     s_player.setTexture(_player);
 
+    _bg.loadFromFile("resources/background.png");
+    s_bg.setTexture(_bg);
+    s_bg.setScale(2, 2.5);
+
     s_player.setOrigin(32, 32);
     //s_player.setPosition(55, 45);
     //setRect(0, 0, 0, 0);
@@ -266,6 +270,7 @@ void GameState::draw()
 {
 	m_window.clear();
 
+	m_window.draw(s_bg);
 	DisplayMap();
     DisplayTime();
     DisplayPlayer();
