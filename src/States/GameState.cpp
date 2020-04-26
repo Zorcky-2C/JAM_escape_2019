@@ -98,7 +98,7 @@ GameState::GameState(StateMachine &machine, sf::RenderWindow& _window, bool repl
     s_bg.setTexture(_bg);
     s_bg.setScale(2, 2.5);
 
-    s_player.setOrigin(32, 32);
+    //s_player.setOrigin(32, 32);
     s_player.setPosition(55, 45);
     //setRect(0, 0, 0, 0);
 
@@ -207,22 +207,34 @@ void GameState::MovePlayer()
 
     frametime = player_clock.restart().asSeconds();
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)
+        && !sf::Keyboard::isKeyPressed(sf::Keyboard::S)
+        && !sf::Keyboard::isKeyPressed(sf::Keyboard::Q)
+        && !sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         //setRect(96, 0, 0, index_pos);
         //index_pos++;
         s_player.move(0, -player_speed * frametime);
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)
+        && !sf::Keyboard::isKeyPressed(sf::Keyboard::Z)
+        && !sf::Keyboard::isKeyPressed(sf::Keyboard::Q)
+        && !sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         //setRect(0, 0, 0, index_pos);
         //index_pos++;
         s_player.move(0, player_speed * frametime);
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)
+        && !sf::Keyboard::isKeyPressed(sf::Keyboard::Z)
+        && !sf::Keyboard::isKeyPressed(sf::Keyboard::S)
+        && !sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         //setRect(48, 0, 0, index_pos);
         //index_pos++;
         s_player.move(-player_speed * frametime, 0);
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)
+        && !sf::Keyboard::isKeyPressed(sf::Keyboard::Z)
+        && !sf::Keyboard::isKeyPressed(sf::Keyboard::Q)
+        && !sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         //setRect(144, 0, 0, index_pos);
         //index_pos++;
         s_player.move(player_speed *frametime, 0);
