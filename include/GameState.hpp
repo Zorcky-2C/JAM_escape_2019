@@ -70,7 +70,7 @@ class GameState : public State
         sf::Vector2f velocity;
 
         float frametime;
-        const float player_speed = 500;
+        const float player_speed = 200;
         int _maxtime;
         int _level;
         bool check;

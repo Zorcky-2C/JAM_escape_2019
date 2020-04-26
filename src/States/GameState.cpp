@@ -76,7 +76,7 @@ GameState::GameState(StateMachine &machine, sf::RenderWindow& _window, bool repl
 : State{machine, _window, replace}
 {
     std::cout << "GameState : ctor" << std::endl;
-    if (!_wall.loadFromFile("img/wall.png")) {
+    if (!_wall.loadFromFile("img/w4.png")) {
         std::cerr << "Load texture failed" << std::endl;
         exit(84);
     }
@@ -93,12 +93,13 @@ GameState::GameState(StateMachine &machine, sf::RenderWindow& _window, bool repl
         exit(84);
     }
     s_player.setTexture(_player);
+    //player_view.zoom(0.11);
 
     _bg.loadFromFile("resources/background.png");
     s_bg.setTexture(_bg);
     s_bg.setScale(2, 2.5);
 
-    //s_player.setOrigin(32, 32);
+    s_player.setOrigin(10, 10);
     s_player.setPosition(55, 45);
     //setRect(0, 0, 0, 0);
 
@@ -208,7 +209,7 @@ void GameState::MovePlayer()
     frametime = player_clock.restart().asSeconds();
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)
-        && !sf::Keyboard::isKeyPressed(sf::Keyboard::S)
+        //&& !sf::Keyboard::isKeyPressed(sf::Keyboard::S)
         && !sf::Keyboard::isKeyPressed(sf::Keyboard::Q)
         && !sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         //setRect(96, 0, 0, index_pos);
@@ -216,7 +217,7 @@ void GameState::MovePlayer()
         s_player.move(0, -player_speed * frametime);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)
-        && !sf::Keyboard::isKeyPressed(sf::Keyboard::Z)
+        //&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Z)
         && !sf::Keyboard::isKeyPressed(sf::Keyboard::Q)
         && !sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         //setRect(0, 0, 0, index_pos);
@@ -225,15 +226,15 @@ void GameState::MovePlayer()
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)
         && !sf::Keyboard::isKeyPressed(sf::Keyboard::Z)
-        && !sf::Keyboard::isKeyPressed(sf::Keyboard::S)
-        && !sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        //&& !sf::Keyboard::isKeyPressed(sf::Keyboard::D)
+        && !sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         //setRect(48, 0, 0, index_pos);
         //index_pos++;
         s_player.move(-player_speed * frametime, 0);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)
         && !sf::Keyboard::isKeyPressed(sf::Keyboard::Z)
-        && !sf::Keyboard::isKeyPressed(sf::Keyboard::Q)
+        //&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Q)
         && !sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         //setRect(144, 0, 0, index_pos);
         //index_pos++;
