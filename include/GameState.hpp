@@ -24,6 +24,13 @@ namespace sf
 	class RenderWindow;
 }
 
+template<typename T1,typename T2>
+bool check_collision(const T1 &a,const T2 &b){
+    sf::FloatRect box1 = a.getGlobalBounds();
+    sf::FloatRect box2 = b.getGlobalBounds();
+    return box1.intersects(box2);
+}
+
 class GameState : public State
 {
     public:
@@ -56,7 +63,7 @@ class GameState : public State
         sf::Vector2f velocity;
 
         float frametime;
-        const float player_speed = 100;
+        const float player_speed = 150;
         int _maxtime;
         int _level;
 };
