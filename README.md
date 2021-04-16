@@ -30,4 +30,4 @@ Your goal is to find the exit before time runs out
 
 ![menu](./img/screenshots/menu.png)
 
-![ingame](./img/screenshots/ingame.png)
+![ingame](./img/screenshots/imgame.png)
