@@ -10,16 +10,22 @@ Theme of the Jam: **Escape**
 
 ```bash
 sudo apt-get install libsfml-dev
+```
 
 ## Run
 
 Compile the project
-python
+```bash
 make
+```
 
 Exec binary
+```
 ./escape
+```
 
 ## Game description
 A maze is procedurally generated each time you start the game.
 Your goal is to find the exit before time runs out
+
+![plot](./img/wall.png)
