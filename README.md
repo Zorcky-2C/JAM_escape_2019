@@ -28,6 +28,6 @@ Exec binary
 A maze is procedurally generated each time you start the game.
 Your goal is to find the exit before time runs out
 
-![plot](./img/screenshots/menu.png)
+![menu](./img/screenshots/menu.png)
 
-![plot](./img/screenshots/ingame.png)
+![ingame](./img/screenshots/ingame.png)
